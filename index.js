@@ -2,6 +2,8 @@ const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
 
+const Employees = []
+
 function App() {
   console.log("Hello world.");
   // Start building the team using
