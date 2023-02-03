@@ -1,6 +1,9 @@
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
+const Intern = require('./lib/intern')
+const TeamLead = require('./lib/teamLead')
+const Developer = require('./lib/developer')
 
 const Employees = []
 
@@ -32,10 +35,14 @@ function App() {
         },
       ])
       .then((answer) => {
-        console.log(answer.teamLeadName);
-        console.log(answer.teamLeadID);
-        console.log(answer.teamLeadEmail);
-        console.log(answer.teamLeadPhone);
+        const teamLead = new TeamLead(
+          answer.teamLeadName,
+          answer.teamLeadID,
+          answer.teamLeadEmail,
+          answer.teamLeadPhone,
+        )
+        console.log(`Team leader ${answer.teamLeadName} saved`);
+        Employees.push(teamLead)
         chooseNextStep();
       });
   }
@@ -91,10 +98,14 @@ function App() {
           },
         ])
         .then((answer) => {
-          console.log(answer.developerName);
-          console.log(answer.developerID);
-          console.log(answer.developerEmail);
-          console.log(answer.developerGithub);
+          const developer = new Developer(
+            answer.developerName,
+            answer.developerID,
+            answer.developerEmail,
+            answer.developerGithub,
+          )
+          console.log(`Developer ${answer.developerName} saved`);
+          Employees.push(developer)
           chooseNextStep();
         });
     }
@@ -123,10 +134,15 @@ function App() {
           },
         ])
         .then((answer) => {
-          console.log(answer.internName);
-          console.log(answer.internID);
-          console.log(answer.internEmail);
-          console.log(answer.internSchool);
+          const intern = new Intern(
+            answer.internName,
+            answer.internID,
+            answer.internEmail,
+            answer.internSchool,
+          )
+          console.log(`Intern ${answer.internName} saved`);
+          Employees.push(intern)
+
           chooseNextStep();
         });
     }
