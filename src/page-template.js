@@ -2,40 +2,42 @@
 //this will create the string that will be passed through fs to generate an html file back in index.js
 const generateTeamHTML = (team) => {
   //first construct the functions to be used by object mapper
-  generateTeamLead = (teamLead) => {
+  const generateTeamLead = (teamLead) => {
     return `
-    <div class="teamLeadCard">
+    <div class="teamLeadCard card">
     <h2>${teamLead.getName()}</h2>
-    <h3>Role: ${teamLead.getRole()}<h3>
+    <h3>Role: ${teamLead.getRole()}</h3>
     <div>
-      <a>Email: ${teamLead.getEmail()}</a>
-      <a>Phone Number: ${teamLead.getPhone()}</a>
+      <a class="red">Email: ${teamLead.getEmail()}</a>
+      <a>Phone Number: ${teamLead.phone}</a>
+    </div >
+    </div >
+  `;
+  };
+
+  const generateDeveloper = (developer) => {
+    return `
+<div class="developerCard card">
+  <h2>${developer.getName()}</h2>
+  <h3>Role: ${developer.getRole()}</h3>
+    <div>
+      <a class="blue">Email: ${developer.getEmail()}</a>
+      <a>Github: ${developer.github}</a>
     </div>
-    </div>
+</div>
     `;
   };
-  generateDeveloper = (deveoper) => {
+
+  const generateIntern = (intern) => {
     return `
-    <div class="developerCard">
-    <h2>${developer.getName()}</h2>
-    <h3>Role: ${developer.getRole()}<h3>
-    <div>
-      <a>Email: ${developer.getEmail()}</a>
-      <a>Phone Number: ${developer.getGithub()}</a>
-    </div>
-    </div>
-    `;
-  };
-  generateIntern = (intern) => {
-    return `
-    <div class="internCard">
+<div class="internCard card">
     <h2>${intern.getName()}</h2>
-    <h3>Role: ${intern.getRole()}<h3>
+    <h3>Role: ${intern.getRole()}</h3>
     <div>
-      <a>Email: ${intern.getEmail()}</a>
-      <a>Phone Number: ${intern.getSchool()}</a>
+      <a class="blue">Email: ${intern.getEmail()}</a>
+      <a>School: ${intern.school}</a>
     </div>
-    </div>
+</div>
     `;
   };
 
@@ -44,19 +46,19 @@ const generateTeamHTML = (team) => {
   const html = [];
   html.push(
     team
-      .filter((employee) => employee.getRole() === "TeamLead")
-      .map((teamLead) => generateTeamLead(teamLead))
+      .filter(employee => employee.getRole() === "Team Lead")
+      .map(teamLead => generateTeamLead(teamLead))
   );
   html.push(
     team
       .filter((employee) => employee.getRole() === "Developer")
-      .map((developer) => generateDeveloper(developer))
+      .map(developer => generateDeveloper(developer))
       .join("")
   );
   html.push(
     team
       .filter((employee) => employee.getRole() === "Intern")
-      .map((intern) => generateTeamLead(intern))
+      .map(intern => generateIntern(intern))
       .join("")
   );
   return html.join("");
@@ -64,7 +66,7 @@ const generateTeamHTML = (team) => {
 
 //Export a full HTML template and insert team information into html body
 
-module.exports = (team) => {
+module.exports = team => {
   return `
   <!DOCTYPE html>
 <html lang="en">
@@ -81,7 +83,7 @@ module.exports = (team) => {
 </head>
 
 <body>
-${generateTeamHTML}
+${generateTeamHTML(team)}
 </body>
 
 

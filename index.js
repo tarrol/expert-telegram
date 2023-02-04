@@ -4,11 +4,16 @@ const fs = require("fs");
 const Intern = require('./lib/intern')
 const TeamLead = require('./lib/teamLead')
 const Developer = require('./lib/developer')
+const render = require('./src/page-template')
 
-const Employees = []
+const DIST_DIR = path.resolve(__dirname, 'dist');
+const distPath = path.join(DIST_DIR, 'team.html');
+
+
+const employeeList = []
 
 function App() {
-  console.log("Hello world.");
+  console.log("Welcome to TEAM-HTML.");
   // Start building the team using
   function createTeamLead() {
     inquirer
@@ -42,7 +47,7 @@ function App() {
           answer.teamLeadPhone,
         )
         console.log(`Team leader ${answer.teamLeadName} saved`);
-        Employees.push(teamLead)
+        employeeList.push(teamLead)
         chooseNextStep();
       });
   }
@@ -70,6 +75,7 @@ function App() {
             break;
           default:
             console.log("Goodbye.");
+            createHTML();
             break;
         }
       });
@@ -105,7 +111,7 @@ function App() {
             answer.developerGithub,
           )
           console.log(`Developer ${answer.developerName} saved`);
-          Employees.push(developer)
+          employeeList.push(developer)
           chooseNextStep();
         });
     }
@@ -141,12 +147,20 @@ function App() {
             answer.internSchool,
           )
           console.log(`Intern ${answer.internName} saved`);
-          Employees.push(intern)
+          employeeList.push(intern)
 
           chooseNextStep();
         });
     }
   }
+  function createHTML() {
+    // Create the output directory if the dist path doesn't exist
+    if (!fs.existsSync(DIST_DIR)) {
+      fs.mkdirSync(DIST_DIR);
+    }
+    fs.writeFileSync(distPath, render(employeeList), 'utf-8');
+  }
+
   createTeamLead();
 }
 
