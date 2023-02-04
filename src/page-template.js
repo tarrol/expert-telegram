@@ -5,11 +5,11 @@ const generateTeamHTML = (team) => {
   const generateTeamLead = (teamLead) => {
     return `
     <div class="teamLeadCard card">
-    <h2>${teamLead.getName()}</h2>
+    <h2>${teamLead.getName()} || ${teamLead.getId()}</h2>
     <h3>Role: ${teamLead.getRole()}</h3>
-    <div>
-      <a class="red">Email: ${teamLead.getEmail()}</a>
-      <a>Phone Number: ${teamLead.phone}</a>
+    <div class="d-flex flex-column justify-content-center">
+      <a>Email: <a href="mailto:${teamLead.getEmail()}">${teamLead.getEmail()}</a></a>
+      <a>Phone Number: ${teamLead.getPhone()}</a>
     </div >
     </div >
   `;
@@ -18,11 +18,11 @@ const generateTeamHTML = (team) => {
   const generateDeveloper = (developer) => {
     return `
 <div class="developerCard card">
-  <h2>${developer.getName()}</h2>
+  <h2>${developer.getName()} || ID: ${developer.getId()}</h2>
   <h3>Role: ${developer.getRole()}</h3>
-    <div>
-      <a class="blue">Email: ${developer.getEmail()}</a>
-      <a>Github: ${developer.github}</a>
+    <div class="d-flex flex-column justify-content-center">
+      <a>Email: <a href="mailto:${developer.getEmail()}">${developer.getEmail()}</a></a>
+      <a>Github: <a href="https://github.com/${developer.getGithub()}" target="_blank" rel="noopener noreferrer">${developer.getGithub()}</a></a>
     </div>
 </div>
     `;
@@ -31,11 +31,11 @@ const generateTeamHTML = (team) => {
   const generateIntern = (intern) => {
     return `
 <div class="internCard card">
-    <h2>${intern.getName()}</h2>
+    <h2>${intern.getName()} || ID: ${intern.getId()}</h2>
     <h3>Role: ${intern.getRole()}</h3>
-    <div>
-      <a class="blue">Email: ${intern.getEmail()}</a>
-      <a>School: ${intern.school}</a>
+    <div class="d-flex flex-column justify-content-center">
+      <a>Email: <a href="mailto:${intern.getEmail()}">${intern.getEmail()}</a></a>
+      <a>School: ${intern.getSchool()}</a>
     </div>
 </div>
     `;
